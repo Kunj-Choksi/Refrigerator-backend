@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  store_name: MyString
+  billing_amount: 1.5
+  partial_amount: 1.5
+  purchase_type: MyString
+  purchase_date: 2024-07-07 19:22:02
+  store_logo: MyString
+  verifi_id: MyString
+  verifi_metadata: 
+
+two:
+  store_name: MyString
+  billing_amount: 1.5
+  partial_amount: 1.5
+  purchase_type: MyString
+  purchase_date: 2024-07-07 19:22:02
+  store_logo: MyString
+  verifi_id: MyString
+  verifi_metadata: 

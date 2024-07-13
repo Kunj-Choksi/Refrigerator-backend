@@ -1,0 +1,8 @@
+<div class="mx-auto md:w-2/3 w-full mb-5">
+  <h1 class="font-bold text-4xl">Editing purchase</h1>
+
+  <%= render "form", purchase: @purchase %>
+
+  <%= link_to "Show this purchase", @purchase, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to purchases", purchases_path, class: "text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800" %>
+</div>
