@@ -12,4 +12,10 @@ Rails.application.routes.draw do
   end
 
   resources :purchase_items, only: %i[edit update destroy]
+
+  namespace :mobile_app do
+    get 'purchases_list', to: 'purchases#list'
+    get 'purchase_items/:id', to: 'purchases#purchase_items'
+    post 'create_purchase', to: 'purchases#create'
+  end
 end

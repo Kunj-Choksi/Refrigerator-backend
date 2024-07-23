@@ -1,0 +1,2 @@
+module MobileApp::PurchasesHelper
+end

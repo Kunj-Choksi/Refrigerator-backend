@@ -33,6 +33,8 @@ gem 'google-cloud-storage'
 
 gem 'veryfi', '~> 2.0.0'
 
+gem 'rack-cors'
+
 gem 'figaro'
 
 # Use Redis adapter to run Action Cable in production

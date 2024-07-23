@@ -7,7 +7,7 @@ module PurchaseServices
     def call
       false unless @purchase.save!
 
-      VerifiPurchase::Transform.call(purchase: @purchase)
+      VerifiPurchase::Transform.call(purchase: @purchase) if @purchase.purchase_receipt.url
 
       true
     end
@@ -23,9 +23,13 @@ module PurchaseServices
 
     attr_reader :purchase, :params
 
-
     def assign_attributes
-      @purchase.assign_attributes(@params)
+      @purchase.assign_attributes(
+        store_name: params[:store_name],
+        billing_amount: params[:billing_amount],
+        purchase_date: params[:purchase_date],
+        purchase_receipt: params[:purchase_receipt]
+      )
     end
   end
 end
