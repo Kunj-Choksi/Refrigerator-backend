@@ -27,7 +27,7 @@ module Refrigerator
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '*', headers: :any, methods: %i[get post options]
+        resource '*', headers: :any, methods: %i[get post options patch]
       end
     end
   end
