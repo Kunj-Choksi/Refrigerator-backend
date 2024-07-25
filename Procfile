@@ -1,0 +1,1 @@
+postdeploy: /bin/postdeploy.sh
