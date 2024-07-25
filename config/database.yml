@@ -79,6 +79,6 @@ test:
 #
 production:
   <<: *default
-  database: refrigerator_production
-  username: refrigerator
-  password: <%= ENV["REFRIGERATOR_DATABASE_PASSWORD"] %>
+  database: <%= ENV["PRODUCTION_DATABASE"] %>
+  username: <%= ENV["PRODUCTION_DATABASE_USERNAME"] %>
+  password: <%= ENV["PRODUCTION_DATABASE_PASSWORD"] %>
