@@ -1,1 +1,1 @@
-postdeploy: /bin/scripts/postdeploy.sh
+postdeploy: bundle exec rails db:create && bundle exec rails db:migrate
