@@ -5,10 +5,8 @@ module PurchaseServices
     end
 
     def call
-      false unless @purchase.save!
-
-      VerifiPurchase::Transform.call(purchase: @purchase) if @purchase.purchase_receipt.url
-
+      false unless purchase.save!
+      save_verifi
       true
     end
 
@@ -24,12 +22,16 @@ module PurchaseServices
     attr_reader :purchase, :params
 
     def assign_attributes
-      @purchase.assign_attributes(
-        store_name: params[:store_name],
-        billing_amount: params[:billing_amount],
-        purchase_date: params[:purchase_date],
-        purchase_receipt: params[:purchase_receipt]
-      )
+      purchase.store_name = params[:store_name]
+      purchase.billing_amount = params[:billing_amount]
+      purchase.purchase_date = params[:purchase_date]
+      purchase.purchase_receipt = params[:purchase_receipt] if params[:purchase_receipt]
+    end
+
+    def save_verifi
+      return if purchase.verifi_metadata.present? || !purchase.purchase_receipt.url
+
+      VerifiPurchase::Transform.call(purchase:)
     end
   end
 end
