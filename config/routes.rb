@@ -19,5 +19,6 @@ Rails.application.routes.draw do
     post 'create_purchase', to: 'purchases#create'
     get 'purchase_item/:id', to: 'purchase_items#details'
     patch 'update_purchase_item', to: 'purchase_items#update'
+    patch 'mark_as_used/:id', to: 'purchase_items#mark_as_used'
   end
 end

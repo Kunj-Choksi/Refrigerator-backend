@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_709_235_543) do
+ActiveRecord::Schema[7.1].define(version: 20_240_724_100_754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -56,6 +56,8 @@ ActiveRecord::Schema[7.1].define(version: 20_240_709_235_543) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.date 'deleted_at'
+    t.boolean 'used', default: false
+    t.boolean 'has_no_expiry', default: false
     t.index ['purchase_id'], name: 'index_purchase_items_on_purchase_id'
   end
 

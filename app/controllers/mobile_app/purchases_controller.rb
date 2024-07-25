@@ -8,7 +8,7 @@ class MobileApp::PurchasesController < MobileApp::BaseController
 
     purchase = Purchase.find(params[:id])
 
-    render_result_json purchase.purchase_items.order(created_at: :desc)
+    render_result_json purchase.purchase_items.order(used: :asc, created_at: :desc)
   end
 
   def create
