@@ -1,1 +1,1 @@
-postdeploy: /bin/postdeploy.sh
+postdeploy: /bin/scripts/postdeploy.sh
