@@ -1,1 +1,1 @@
-postdeploy: bundle exec rails db:create && bundle exec rails db:migrate
+postdeploy: bundle exec rails db:migrate
