@@ -34,10 +34,10 @@ module VerifiUtil
 
     def veryfi_client
       Veryfi::Client.new(
-        client_id: ENV['client_id'],
-        client_secret: ENV['client_secret'],
-        username: ENV['username'],
-        api_key: ENV['api_key']
+        client_id: ENV['VERIFY_CLIENT_ID'],
+        client_secret: ENV['VERIFY_CLIENT_SECRET'],
+        username: ENV['VERIFY_USERNAME'],
+        api_key: ENV['VERIFY_API_KEY']
       )
     end
   end
