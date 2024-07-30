@@ -19,9 +19,11 @@ Rails.application.routes.draw do
     get 'purchase_items/:id', to: 'purchases#purchase_items'
     post 'create_purchase', to: 'purchases#create'
     post 'update_purchase', to: 'purchases#update'
+    delete 'delete_purchase/:id', to: 'purchases#destroy'
 
     get 'purchase_item/:id', to: 'purchase_items#details'
     patch 'update_purchase_item', to: 'purchase_items#update'
     patch 'mark_as_used/:id', to: 'purchase_items#mark_as_used'
+    delete 'delete_purchase_item/:id', to: 'purchase_items#destroy'
   end
 end

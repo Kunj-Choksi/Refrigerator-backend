@@ -1,5 +1,5 @@
 class MobileApp::PurchasesController < MobileApp::BaseController
-  before_action :set_purchase, only: %i[purchase purchase_items update]
+  before_action :set_purchase, except: %i[list create]
 
   def list
     render_result_json Purchase.all.order(purchase_date: :desc)
@@ -32,6 +32,16 @@ class MobileApp::PurchasesController < MobileApp::BaseController
       render_result_message 'Added purchase'
     else
       render_error_message 'Not Added purchase'
+    end
+  end
+
+  def destroy
+    return unless has_sufficient_params?(%w[id])
+
+    if @purchase.destroy!
+      render_result_message 'Deleted purchase'
+    else
+      render_error_message 'Not deleted purchase'
     end
   end
 

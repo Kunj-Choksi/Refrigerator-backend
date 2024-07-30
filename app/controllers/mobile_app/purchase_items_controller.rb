@@ -32,6 +32,16 @@ class MobileApp::PurchaseItemsController < MobileApp::BaseController
     end
   end
 
+  def destroy
+    return unless has_sufficient_params?(%w[id])
+
+    if @purchase_item.destroy!
+      render_result_message 'Deleted purchase Item'
+    else
+      render_error_message 'Not deleted purchase Item'
+    end
+  end
+
   private
 
   def set_purchase_item
