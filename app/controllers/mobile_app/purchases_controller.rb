@@ -2,7 +2,7 @@ class MobileApp::PurchasesController < MobileApp::BaseController
   before_action :set_purchase, only: %i[purchase purchase_items update]
 
   def list
-    render_result_json Purchase.all.order(created_at: :desc)
+    render_result_json Purchase.all.order(purchase_date: :desc)
   end
 
   def purchase
