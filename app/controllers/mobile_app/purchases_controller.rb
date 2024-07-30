@@ -16,7 +16,7 @@ class MobileApp::PurchasesController < MobileApp::BaseController
   end
 
   def create
-    return unless has_sufficient_params?(%w[store_name billing_amount purchase_date purchase_receipt])
+    return unless has_sufficient_params?(%w[purchase_receipt])
 
     if PurchaseServices::SavePurchase.call(purchase: Purchase.new, params:)
       render_result_message 'Added purchase'

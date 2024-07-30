@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_724_100_754) do
+ActiveRecord::Schema[7.1].define(version: 20_240_730_021_458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -62,11 +62,11 @@ ActiveRecord::Schema[7.1].define(version: 20_240_724_100_754) do
   end
 
   create_table 'purchases', force: :cascade do |t|
-    t.string 'store_name', null: false
-    t.float 'billing_amount', null: false
+    t.string 'store_name'
+    t.float 'billing_amount'
     t.float 'partial_amount'
     t.string 'purchase_type'
-    t.date 'purchase_date', null: false
+    t.date 'purchase_date'
     t.string 'store_logo', default: 'https://storage.cloud.google.com/refrigerator_receipts/supermarket-logo.jpeg'
     t.string 'verifi_id'
     t.jsonb 'verifi_metadata'
