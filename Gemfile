@@ -43,7 +43,8 @@ gem 'redis', '>= 5.2.0'
 
 gem 'sidekiq'
 
-gem "sidekiq-cron"
+# gem "sidekiq-cron"
+gem 'sidekiq-scheduler'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

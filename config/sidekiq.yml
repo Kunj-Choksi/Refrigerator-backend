@@ -1,0 +1,5 @@
+:scheduler:
+  :schedule:
+    notify_user:
+      every: 1m   # Runs once per minute
+      class: App::NotifyExpiringItemsJob
