@@ -1,0 +1,4 @@
+notify_user:
+  cron: "* * * * *"
+  class: "App::NotifyExpiringItemsJob"
+  queue: notify_user

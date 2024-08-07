@@ -1,1 +1,2 @@
-postdeploy: bundle exec rails db:migrate
+postdeploy: bundle install && bundle exec rails db:migrate
+worker: bundle exec sidekiq
