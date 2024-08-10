@@ -1,5 +1,9 @@
 class MobileApp::PurchaseItemsController < MobileApp::BaseController
-  before_action :set_purchase_item
+  before_action :set_purchase_item, except: [:all_items]
+
+  def all_items
+    render_result_json Purchase::Item.all.order(used: :asc, created_at: :desc)
+  end
 
   def details
     render_result_json @purchase_item
