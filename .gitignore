@@ -37,6 +37,4 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
-keyfile.json
-
 config/application.yml

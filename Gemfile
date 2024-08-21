@@ -29,7 +29,7 @@ gem 'tailwindcss-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
-gem 'google-cloud-storage'
+gem "azure-storage-blob", "~> 2.0.3"
 
 gem 'veryfi'
 
@@ -43,8 +43,7 @@ gem 'redis', '>= 5.2.0'
 
 gem 'sidekiq'
 
-# gem "sidekiq-cron"
-gem 'sidekiq-scheduler'
+gem "sidekiq-cron"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
