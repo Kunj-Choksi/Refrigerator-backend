@@ -79,7 +79,6 @@ test:
 #
 production:
   <<: *default
-  # url: <%= ENV["DATABASE_URL"] %>
   host: <%= ENV["AZURE_DATABASE_HOST"] %>
   database: <%= ENV["AZURE_DATABASE"] %>
   username: <%= ENV["AZURE_DATABASE_USER"] %>

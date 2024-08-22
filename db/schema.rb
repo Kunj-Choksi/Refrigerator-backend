@@ -10,72 +10,71 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_730_021_458) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_021458) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'active_storage_attachments', force: :cascade do |t|
-    t.string 'name', null: false
-    t.string 'record_type', null: false
-    t.bigint 'record_id', null: false
-    t.bigint 'blob_id', null: false
-    t.datetime 'created_at', null: false
-    t.index ['blob_id'], name: 'index_active_storage_attachments_on_blob_id'
-    t.index %w[record_type record_id name blob_id], name: 'index_active_storage_attachments_uniqueness',
-                                                    unique: true
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table 'active_storage_blobs', force: :cascade do |t|
-    t.string 'key', null: false
-    t.string 'filename', null: false
-    t.string 'content_type'
-    t.text 'metadata'
-    t.string 'service_name', null: false
-    t.bigint 'byte_size', null: false
-    t.string 'checksum'
-    t.datetime 'created_at', null: false
-    t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table 'active_storage_variant_records', force: :cascade do |t|
-    t.bigint 'blob_id', null: false
-    t.string 'variation_digest', null: false
-    t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table 'purchase_items', force: :cascade do |t|
-    t.bigint 'purchase_id'
-    t.string 'name'
-    t.float 'price'
-    t.date 'expiration_date'
-    t.float 'quantity'
-    t.string 'unit'
-    t.string 'item_type'
-    t.string 'verifi_id'
-    t.json 'verifi_metadata'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.date 'deleted_at'
-    t.boolean 'used', default: false
-    t.boolean 'has_no_expiry', default: false
-    t.index ['purchase_id'], name: 'index_purchase_items_on_purchase_id'
+  create_table "purchase_items", force: :cascade do |t|
+    t.bigint "purchase_id"
+    t.string "name"
+    t.float "price"
+    t.date "expiration_date"
+    t.float "quantity"
+    t.string "unit"
+    t.string "item_type"
+    t.string "verifi_id"
+    t.json "verifi_metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "deleted_at"
+    t.boolean "used", default: false
+    t.boolean "has_no_expiry", default: false
+    t.index ["purchase_id"], name: "index_purchase_items_on_purchase_id"
   end
 
-  create_table 'purchases', force: :cascade do |t|
-    t.string 'store_name'
-    t.float 'billing_amount'
-    t.float 'partial_amount'
-    t.string 'purchase_type'
-    t.date 'purchase_date'
-    t.string 'store_logo', default: 'https://storage.cloud.google.com/refrigerator_receipts/supermarket-logo.jpeg'
-    t.string 'verifi_id'
-    t.jsonb 'verifi_metadata'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.date 'deleted_at'
+  create_table "purchases", force: :cascade do |t|
+    t.string "store_name"
+    t.float "billing_amount"
+    t.float "partial_amount"
+    t.string "purchase_type"
+    t.date "purchase_date"
+    t.string "store_logo", default: "https://storage.cloud.google.com/refrigerator_receipts/supermarket-logo.jpeg"
+    t.string "verifi_id"
+    t.jsonb "verifi_metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "deleted_at"
   end
 
-  add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'purchase_items', 'purchases'
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "purchase_items", "purchases"
 end
