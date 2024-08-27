@@ -1,0 +1,2 @@
+web: RAILS_ENV=production bin/rails server
+css: bin/rails tailwindcss:watch

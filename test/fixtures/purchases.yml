@@ -1,4 +1,20 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: purchases
+#
+#  id              :bigint           not null, primary key
+#  store_name      :string
+#  billing_amount  :float
+#  partial_amount  :float
+#  purchase_type   :string
+#  purchase_date   :date
+#  store_logo      :string           default("https://storage.cloud.google.com/refrigerator_receipts/supermarket-logo.jpeg")
+#  verifi_id       :string
+#  verifi_metadata :jsonb
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  deleted_at      :date
+#
 
 one:
   store_name: MyString

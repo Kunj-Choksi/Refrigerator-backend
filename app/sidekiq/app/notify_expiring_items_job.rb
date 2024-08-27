@@ -6,6 +6,5 @@ class App::NotifyExpiringItemsJob < ActiveJob::Base
 
     p "item%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
     p item
-    item.update(name: "#{item.name}_#{Time.now}")
   end
 end
