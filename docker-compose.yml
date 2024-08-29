@@ -1,7 +1,6 @@
 services:
   web:
     image: refrigerator.azurecr.io/refrigerator:v1
-    env_file: ./config/application.yml
     ports:
       - 3000:3000
     depends_on:
@@ -10,11 +9,8 @@ services:
     image: "redis:7-alpine"
     ports:
       - 6379:6379
-    volumes:
-      - ${WEBAPP_STORAGE_HOME}:/var/lib/redis/data
   sidekiq:
     image: refrigerator.azurecr.io/refrigerator:v1
     command: bundle exec sidekiq
-    env_file: ./config/application.yml
     depends_on:
       - redis
