@@ -1,5 +1,11 @@
 class MobileApp::BaseController < ActionController::Base
   protect_from_forgery with: :null_session
+  before_action :set_user
+
+  def set_user
+    @user = User.first
+  end
+
   def render_result_json(object)
     obj = {
       status: 'success',

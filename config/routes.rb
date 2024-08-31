@@ -31,5 +31,7 @@ Rails.application.routes.draw do
     patch 'update_purchase_item', to: 'purchase_items#update'
     patch 'mark_as_used/:id', to: 'purchase_items#mark_as_used'
     delete 'delete_purchase_item/:id', to: 'purchase_items#destroy'
+
+    post 'save_device_info', to: 'user#save_device_info'
   end
 end
