@@ -29,10 +29,9 @@ gem 'tailwindcss-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
-gem "azure-storage-blob", "~> 2.0.3"
+gem 'azure-storage-blob', '~> 2.0.3'
 
 gem 'veryfi'
-
 
 gem 'rack-cors'
 
@@ -43,7 +42,7 @@ gem 'redis', '>= 5.2.0'
 
 gem 'sidekiq'
 
-gem "sidekiq-cron"
+gem 'sidekiq-cron'
 
 gem 'annotate_models'
 
@@ -51,7 +50,7 @@ gem 'annotate_models'
 # gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-gem "bcrypt", "~> 3.1.20"
+gem 'bcrypt', '~> 3.1.20'
 
 gem 'fcm'
 
@@ -66,9 +65,15 @@ gem 'bootsnap', require: false
 
 gem 'paranoia', '~> 2.6.4'
 
-gem "devise", "~> 4.9.4"
+gem 'devise', '~> 4.9.4'
 
 gem 'rspec-rails', '~> 6.1.5'
+
+gem 'rails-controller-testing'
+
+gem 'factory_bot_rails'
+
+gem 'rubocop-rails', require: false
 
 gem 'devise-tailwinded'
 
@@ -90,6 +95,6 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'capybara'
-  gem 'selenium-webdriver'
+  # gem 'capybara'
+  # gem 'selenium-webdriver'
 end
