@@ -3,7 +3,7 @@ require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
   devise_for :admins
-  mount Sidekiq::Web => "/sidekiq"
+  mount Sidekiq::Web => '/sidekiq'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "purchases#index"
+  root 'purchases#index'
   resources :purchases do
     get 'items', to: 'purchase_items#index', on: :member
   end

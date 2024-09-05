@@ -67,7 +67,9 @@ gem 'paranoia', '~> 2.6.4'
 
 gem 'devise', '~> 4.9.4'
 
-gem 'rspec-rails', '~> 6.1.5'
+gem 'rspec-rails', '~> 7.0.1'
+
+gem 'shoulda-matchers', '~> 6.4.0'
 
 gem 'rails-controller-testing'
 

@@ -10,18 +10,9 @@ class MobileApp::PurchaseItemsController < MobileApp::BaseController
   end
 
   def update
-    return unless has_sufficient_params?(%w[id name purchase_id price quantity unit])
+    return unless has_sufficient_params?(%i[id name purchase_id price quantity unit])
 
-    @purchase_item.assign_attributes(
-      name: params[:name],
-      price: params[:price],
-      quantity: params[:quantity],
-      unit: params[:unit],
-      expiration_date: params[:expiration_date],
-      has_no_expiry: params[:has_no_expiry]
-    )
-
-    if @purchase_item.save!
+    if PurchaseServices::ItemServices::SaveItem.call(purchase_item: @purchase_item, params:)
       render_result_message 'Updated purchase item'
     else
       render_error_message 'Not updated purchase item'
@@ -29,7 +20,7 @@ class MobileApp::PurchaseItemsController < MobileApp::BaseController
   end
 
   def mark_as_used
-    if @purchase_item.update(used: true)
+    if PurchaseServices::ItemServices::SaveItem.call(purchase_item: @purchase_item, params: { used: true })
       render_result_message 'Marked purchase item as used'
     else
       render_error_message 'Not marked purchase item as used'
@@ -37,8 +28,6 @@ class MobileApp::PurchaseItemsController < MobileApp::BaseController
   end
 
   def destroy
-    return unless has_sufficient_params?(%w[id])
-
     if @purchase_item.destroy!
       render_result_message 'Deleted purchase Item'
     else
