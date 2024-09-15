@@ -22,12 +22,15 @@ module PurchaseServices
       end
 
       def update_purchase
-        PurchaseServices::UpdatePurchase.call(purchase: purchase, params: mapped_purchase)
+        PurchaseServices::UpdatePurchase.call(purchase:, params: mapped_purchase)
       end
 
       def save_purchase_items
         mapped_purchase_items.each do |purchase_item|
-          PurchaseServices::ItemServices::SaveItem.call(purchase_item: Purchase::Item.new, params: purchase_item)
+          PurchaseServices::ItemServices::SaveItem.call(
+            purchase_item: purchase.purchase_items.new,
+            params: purchase_item
+          )
         end
       end
     end

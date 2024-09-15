@@ -6,6 +6,6 @@ class App::NotifyExpiringItemsJob < ActiveJob::Base
 
     text = "#{item.name} is expiring on #{item.expiration_date}"
 
-    FcmUtil::Fcm.call(text: text, device_fcm_token: User::Device.first.fcm_token)
+    FcmUtil::Fcm.call(text:, device_fcm_token: User::Device.first.fcm_token)
   end
 end

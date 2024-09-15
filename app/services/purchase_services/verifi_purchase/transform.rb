@@ -26,11 +26,15 @@ module PurchaseServices
       end
 
       def verifi_mapped
-        @verifi_mapped ||= Mapper.call(verifi_dump: @verifi_dump, purchase: purchase)
+        @verifi_mapped ||= Mapper.call(verifi_dump: @verifi_dump, purchase:)
       end
 
       def save_data
-        Save.call(mapped_purchase: @verifi_mapped.mapped_purchase, mapped_purchase_items: @verifi_mapped.mapped_purchase_items, purchase: purchase)
+        Save.call(
+          mapped_purchase: @verifi_mapped.mapped_purchase,
+          mapped_purchase_items: @verifi_mapped.mapped_purchase_items,
+          purchase:
+        )
       end
 
       def purchase_receipt
