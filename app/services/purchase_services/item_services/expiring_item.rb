@@ -8,7 +8,7 @@ module PurchaseServices
     # @return Purchase::Item
     class ExpiringItem
       def self.call
-        purchase_items = Purchase::Item.not_used.with_expirations.order(expiration_date: :asc)
+        purchase_items = Purchase::Item.not_used.order(expiration_date: :asc)
 
         purchase_items.first
       end

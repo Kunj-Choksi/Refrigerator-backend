@@ -26,7 +26,6 @@ module PurchaseServices
         @purchase_item.quantity = params[:quantity] if params[:quantity].present?
         @purchase_item.unit = params[:unit] if params[:unit].present?
         @purchase_item.expiration_date = params[:expiration_date] if params[:expiration_date].present?
-        @purchase_item.has_no_expiry = params[:has_no_expiry] if params[:has_no_expiry].present?
         @purchase_item.used = params[:used] if params[:used].present?
       end
     end

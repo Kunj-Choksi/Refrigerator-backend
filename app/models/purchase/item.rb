@@ -3,25 +3,31 @@
 # Table name: purchase_items
 #
 #  id              :bigint           not null, primary key
-#  purchase_id     :bigint
+#  deleted_at      :date
+#  expiration_date :date
+#  item_type       :string
 #  name            :string
 #  price           :float
-#  expiration_date :date
 #  quantity        :float
 #  unit            :string
-#  item_type       :string
-#  verifi_id       :string
+#  used            :boolean          default(FALSE)
 #  verifi_metadata :json
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  deleted_at      :date
-#  used            :boolean          default(FALSE)
-#  has_no_expiry   :boolean          default(FALSE)
+#  purchase_id     :bigint
+#  verifi_id       :string
+#
+# Indexes
+#
+#  index_purchase_items_on_purchase_id  (purchase_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (purchase_id => purchases.id)
 #
 class Purchase::Item < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :purchase
   scope :not_used, -> { where(used: false) }
-  scope :with_expirations, -> { where.not(has_no_expiry: true, expiration_date: nil) }
 end

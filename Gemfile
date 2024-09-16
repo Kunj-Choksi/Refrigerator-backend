@@ -44,7 +44,7 @@ gem 'sidekiq'
 
 gem 'sidekiq-cron'
 
-gem 'annotate_models'
+gem 'annotate'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

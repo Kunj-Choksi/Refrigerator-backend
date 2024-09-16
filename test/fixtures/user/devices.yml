@@ -3,13 +3,16 @@
 # Table name: user_devices
 #
 #  id          :bigint           not null, primary key
-#  user_id     :bigint
-#  fcm_token   :string
 #  device_type :string
+#  fcm_token   :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :bigint
 #
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Indexes
+#
+#  index_user_devices_on_user_id  (user_id)
+#
 
 # This model initially had no columns defined. If you add columns to the
 # model remove the "{}" from the fixture names and add the columns immediately
