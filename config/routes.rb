@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :purchase_items, only: %i[edit update destroy]
 
   namespace :mobile_app do
+    post 'login', to: 'session#login'
+
     get 'purchases_list', to: 'purchases#list'
     get 'purchase/:id', to: 'purchases#purchase'
     get 'purchase_items/:id', to: 'purchases#purchase_items'

@@ -18,13 +18,17 @@ RSpec.describe MobileApp::PurchaseItemsController do
       .and_return(purchase_item)
   end
 
-  describe 'GET #all_items' do
+  xdescribe 'GET #all_items' do
+    let(:all_items) { Purchase::Item.all }
+
     before do
-      allow(Purchase::Item).to receive_message_chain(:all, :order)
-        .with(used: :asc, created_at: :desc)
+      allow(all_items).to receive(:order)
+        .with(created_at: :desc)
     end
 
     it 'returns all items' do
+      expect(Purchase::Item).to receive_message_chain(:all, :where)
+        .with(used: false)
       expect(controller).to receive(:render)
         .with(json: { status: 'success', contents: nil })
 

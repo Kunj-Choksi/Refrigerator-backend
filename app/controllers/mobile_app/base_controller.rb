@@ -1,9 +1,34 @@
 class MobileApp::BaseController < ActionController::Base
   protect_from_forgery with: :null_session
-  before_action :set_user
+  before_action :session_user
 
-  def set_user
-    @user = User.first
+  def session_user
+    decoded_hash = decode_token
+    if decoded_hash && decoded_hash.empty?
+      nil
+    else
+      p decoded_hash
+      @user = User.find_by_email(decoded_hash[0]['email'])
+    end
+  end
+
+  def auth_header
+    request.headers['Authorization']
+  end
+
+  def decode_token
+    return unless auth_header
+
+    token = auth_header.split(' ')[1]
+    begin
+      JWT.decode(token, ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')
+    rescue StandardError
+      []
+    end
+  end
+
+  def encoded_token(payload)
+    JWT.encode(payload, ENV['SECRET_KEY_BASE'])
   end
 
   def render_result_json(object)

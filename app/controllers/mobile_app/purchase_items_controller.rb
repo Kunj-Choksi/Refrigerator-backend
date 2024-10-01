@@ -2,7 +2,19 @@ class MobileApp::PurchaseItemsController < MobileApp::BaseController
   before_action :set_purchase_item, except: [:all_items]
 
   def all_items
-    render_result_json Purchase::Item.all.order(used: :asc, created_at: :desc)
+    all_items = Purchase::Item.all
+
+    if params[:used] == 'true'
+      all_items = Purchase::Item.all.where(used: true) if params[:used] == 'true'
+    elsif params[:expiring_soon] == 'true'
+      all_items = Purchase::Item.all.where(expiration_date: Date.today..Date.today + 5.days, used: false)
+    elsif params[:expired] == 'true'
+      all_items = Purchase::Item.all.where(expiration_date: ..Date.today)
+    else
+      all_items = Purchase::Item.all.where(used: false)
+    end
+
+    render_result_json all_items.order(created_at: :desc)
   end
 
   def details

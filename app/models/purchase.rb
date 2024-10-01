@@ -20,4 +20,7 @@ class Purchase < ApplicationRecord
 
   has_one_attached :purchase_receipt, service: :azure
   has_many :purchase_items, dependent: :destroy, class_name: 'Purchase::Item'
+  def store_name=(value)
+    super(value.titleize)
+  end
 end

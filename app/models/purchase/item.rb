@@ -30,4 +30,8 @@ class Purchase::Item < ApplicationRecord
 
   belongs_to :purchase
   scope :not_used, -> { where(used: false) }
+
+  def name=(value)
+    super(value.titleize)
+  end
 end
