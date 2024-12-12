@@ -26,7 +26,7 @@ module UserServices
 
     def assign_attributes
       @user_device.assign_attributes(
-        fcm_token: params[:fcm_token], 
+        fcm_token: params[:fcm_token],
         device_type: params[:device_type]
       )
     end
