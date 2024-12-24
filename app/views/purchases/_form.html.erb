@@ -22,23 +22,8 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :partial_amount %>
-    <%= form.text_field :partial_amount, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :purchase_type %>
-    <%= form.text_field :purchase_type, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :purchase_date %>
-    <%= form.date_field :purchase_date, value: Date.today, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", readonly: true %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :purchase_receipt, class: "mb-2 inline-block dark:text-neutral-600" %>
-    <%= form.file_field :purchase_receipt, enctype: "multipart/form-data", class: "relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-black/70 dark:text-black  file:dark:text-black" %>
+    <%= form.date_field :purchase_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", max: Date.today %>
   </div>
 
   <div class="inline">

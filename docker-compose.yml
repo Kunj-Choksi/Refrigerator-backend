@@ -14,3 +14,19 @@ services:
     command: bundle exec sidekiq
     depends_on:
       - redis
+# services:
+#   web:
+#     image: refrigerator:v1
+#     ports:
+#       - 3000:3000
+#     depends_on:
+#       - redis
+#   redis:
+#     image: "redis:7-alpine"
+#     ports:
+#       - 6379:6379
+#   sidekiq:
+#     image: refrigerator:v1
+#     command: bundle exec sidekiq
+#     depends_on:
+#       - redis

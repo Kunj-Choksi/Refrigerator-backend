@@ -69,7 +69,6 @@ module FcmUtil
     def initialize_fcm
       @fcm ||= FCM.new(
         nil,
-        # './tmp/creds.json',
         StringIO.new(JSON.generate(CREDS)),
         'refrigerator-20974'
       )

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_16_230743) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_23_010831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,40 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_16_230743) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_conversations_on_user_id"
+  end
+
+  create_table "external_requests", force: :cascade do |t|
+    t.integer "reconcilable_id"
+    t.string "reconcilable_type"
+    t.string "url"
+    t.string "request_method"
+    t.string "request_headers"
+    t.string "request_body"
+    t.string "response_headers"
+    t.string "response_body"
+    t.string "response_code"
+    t.string "event"
+    t.decimal "duration", precision: 10, scale: 3
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "conversation_id", null: false
+    t.text "body"
+    t.string "message_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 
   create_table "purchase_items", force: :cascade do |t|
@@ -104,5 +138,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_16_230743) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conversations", "users"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "purchase_items", "purchases"
 end

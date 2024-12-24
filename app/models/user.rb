@@ -12,5 +12,6 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_one :device, class_name: "User::Device"
+  has_one :device, class_name: 'User::Device'
+  has_many :conversations
 end

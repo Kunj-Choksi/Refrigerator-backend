@@ -79,6 +79,8 @@ gem 'factory_bot_rails'
 
 gem 'rubocop-rails'
 
+gem 'http'
+
 gem 'devise-tailwinded'
 
 group :development, :test do
