@@ -36,5 +36,9 @@ Rails.application.routes.draw do
     delete 'delete_purchase_item/:id', to: 'purchase_items#destroy'
 
     post 'save_device_info', to: 'user#save_device_info'
+
+    get 'user_conversations', to: 'conversation#user_conversations'
+    get 'conversation_messages/:id', to: 'conversation#conversation_messages'
+    post 'save_conversation_message', to: 'conversation#save_conversation_message'
   end
 end

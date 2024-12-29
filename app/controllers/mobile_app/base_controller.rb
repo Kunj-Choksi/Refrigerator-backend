@@ -5,9 +5,9 @@ class MobileApp::BaseController < ActionController::Base
   def session_user
     decoded_hash = decode_token
     if decoded_hash && decoded_hash.empty?
+      render_error_message 'NOT_AUTHORIZED'
       nil
     else
-      p decoded_hash
       @user = User.find_by_email(decoded_hash[0]['email'])
     end
   end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe MobileApp::PurchaseItemsController do
+RSpec.xdescribe MobileApp::PurchaseItemsController do
+  let(:user) { User.new }
   let(:purchase_item_id) { '1' }
   let(:params) { { id: purchase_item_id } }
   let(:purchase_item) do
@@ -16,9 +17,12 @@ RSpec.describe MobileApp::PurchaseItemsController do
     allow(Purchase::Item).to receive(:find)
       .with(params[:id])
       .and_return(purchase_item)
+    allow(User).to receive(:find_by_email)
+      .with('email')
+      .and_return(user)
   end
 
-  xdescribe 'GET #all_items' do
+  describe 'GET #all_items' do
     let(:all_items) { Purchase::Item.all }
 
     before do

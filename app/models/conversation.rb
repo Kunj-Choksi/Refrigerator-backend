@@ -18,6 +18,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Conversation < ApplicationRecord
-  has_many :messages
+  has_many :messages, dependent: :destroy
   belongs_to :user
 end
