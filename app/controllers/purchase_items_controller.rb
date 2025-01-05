@@ -10,17 +10,17 @@ class PurchaseItemsController < ApplicationController
 
   def update
     if @purchase_item.update(purchase_item_params)
-      redirect_to items_purchase_path(@purchase_item.purchase_id), notice: 'Purchase was successfully updated'
+      redirect_to items_purchase_path(@purchase_item.purchase_id), notice: 'Purchase item was successfully updated'
     else
-      redirect_to edit_purchase_item_path(@purchase_item.id), alert: 'Purchase item was updated successfully'
+      redirect_to edit_purchase_item_path(@purchase_item.id), alert: 'Fail to update Purchase item'
     end
   end
 
   def destroy
     if @purchase_item.destroy!
-      redirect_to items_purchase_path(@purchase_item.purchase_id), notice: 'Purchase was destroyed successfully'
+      redirect_to items_purchase_path(@purchase_item.purchase_id), notice: 'Purchase item was destroyed successfully'
     else
-      redirect_to items_purchase_path(@purchase_item.purchase_id), notice: 'Purchase was not destroyed successfully'
+      redirect_to items_purchase_path(@purchase_item.purchase_id), alert: 'Purchase item was not destroyed successfully'
     end
   end
 
@@ -34,7 +34,13 @@ class PurchaseItemsController < ApplicationController
     @purchase_item = Purchase::Item.find(params[:id])
   end
 
+  def permitted_params
+    %i[
+      name price expiration_date quantity unit
+    ]
+  end
+
   def purchase_item_params
-    params.require(:purchase_item).permit(:name, :price, :expiration_date, :quantity, :unit)
+    params.require(:purchase_item).permit(permitted_params)
   end
 end
