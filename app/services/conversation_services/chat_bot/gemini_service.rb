@@ -3,13 +3,13 @@ module ConversationServices
     class GeminiService
       #
       # @example
-      #   ConversationServices::ChatBot::GeminiService.call(query: query)
+      #   ConversationServices::ChatBot::GeminiService.call(queries: queries)
       def self.call(...)
         new(...).call
       end
 
-      def initialize(query:)
-        @query = query
+      def initialize(queries:)
+        @queries = queries
       end
 
       def call
@@ -18,10 +18,20 @@ module ConversationServices
 
       private
 
-      attr_reader :query
+      attr_reader :queries
 
       def gemini_request_klass
-        GeminiUtil::GeminiRequest.new(query:)
+        GeminiUtil::GeminiRequest.new(queries: request_queries)
+      end
+
+      def request_queries
+        request_queries = []
+
+        queries.each do |query|
+          request_queries << { text: query }
+        end
+
+        request_queries
       end
     end
   end

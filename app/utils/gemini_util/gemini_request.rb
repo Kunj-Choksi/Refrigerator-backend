@@ -1,9 +1,9 @@
 module GeminiUtil
   # Gemini Request to get generative content
   class GeminiRequest < ApiRequest
-    # @params [String] query
-    def initialize(query:)
-      @query = query
+    # @params [String] queries
+    def initialize(queries:)
+      @queries = queries
     end
 
     def parsed_response_data
@@ -12,7 +12,7 @@ module GeminiUtil
 
     private
 
-    attr_reader :query
+    attr_reader :queries
 
     def verb
       :post
@@ -31,11 +31,7 @@ module GeminiUtil
     def json
       {
         contents: [{
-          parts: [
-            {
-              text: query
-            }
-          ]
+          parts: queries
         }]
       }
     end

@@ -16,8 +16,6 @@ module ConversationServices
     def call
       save_user_message
       save_bot_message
-
-      ai_bot_response(query)
     end
 
     private
@@ -41,19 +39,19 @@ module ConversationServices
 
     def save_bot_message
       conversation.messages.create(
-        body: ai_bot_response(query),
+        body: ai_bot_response(conversation.messages.pluck(:body)),
         message_type: Message::MESSAGE_TYPE_AI_BOT
       )
     end
 
     def conversation_title
-      title_query = "#{query} - Can you get me SINGLE title to this query?"
+      title_query = ["#{query} - Can you get me SINGLE title to this query?"]
       ai_bot_response(title_query)
     end
 
-    def ai_bot_response(_query)
-      @ai_bot_response = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt cum dignissimos rem cupiditate corporis eius porro ipsam aut unde iure delectus minima atque voluptate ea ad, iusto aperiam similique, blanditiis aspernatur facilis fugiat facere illo? Adipisci ab exercitationem quasi perferendis?'
-      # @ai_bot_response = ChatBot::GeminiService.call(query:)
+    def ai_bot_response(queries)
+      # 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt cum dignissimos rem cupiditate corporis eius porro ipsam aut unde iure delectus minima atque voluptate ea ad, iusto aperiam similique, blanditiis aspernatur facilis fugiat facere illo? Adipisci ab exercitationem quasi perferendis?'
+      ChatBot::GeminiService.call(queries:)
     end
   end
 end

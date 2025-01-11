@@ -12,13 +12,15 @@ class MobileApp::ConversationController < MobileApp::BaseController
   end
 
   def save_conversation_message
-    return unless has_sufficient_params?(%w[id user_query])
+    return unless has_sufficient_params?(%w[user_query])
 
-    query_replay = ConversationServices::SaveConversation.call(user: @user, query: params[:user_query],
-                                                               conversation_id: params[:id])
+    message = ConversationServices::SaveConversation.call(
+      user: @user, query: params[:user_query],
+      conversation_id: params[:id]
+    )
 
-    if query_replay
-      render_result_json query_replay
+    if message
+      render_result_json message
     else
       render_error_message "Couldn't save conversation and Bot did't replied!"
     end
