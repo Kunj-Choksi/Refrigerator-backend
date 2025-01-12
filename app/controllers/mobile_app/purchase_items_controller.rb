@@ -22,7 +22,7 @@ class MobileApp::PurchaseItemsController < MobileApp::BaseController
   end
 
   def update
-    return unless has_sufficient_params?(%i[id name purchase_id price quantity unit])
+    return unless has_sufficient_params?(%i[id name purchase_id price])
 
     if PurchaseServices::ItemServices::SaveItem.call(purchase_item: @purchase_item, params:)
       render_result_message 'Updated purchase item'

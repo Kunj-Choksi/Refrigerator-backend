@@ -44,8 +44,6 @@ module PurchaseServices
             purchase_id: purchase.id,
             name: line_item['description'],
             price: line_item['total'],
-            quantity: line_item['quantity'],
-            unit: verifi_dump['unit_of_measure'],
             item_type: verifi_dump['type'],
             verifi_id: verifi_dump['id'],
             verifi_metadata: line_item

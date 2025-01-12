@@ -8,8 +8,6 @@
 #  item_type       :string
 #  name            :string
 #  price           :float
-#  quantity        :float
-#  unit            :string
 #  used            :boolean          default(FALSE)
 #  verifi_metadata :json
 #  created_at      :datetime         not null

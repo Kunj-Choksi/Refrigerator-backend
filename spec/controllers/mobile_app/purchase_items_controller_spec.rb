@@ -55,9 +55,7 @@ RSpec.xdescribe MobileApp::PurchaseItemsController do
         id: '1',
         name: 'test',
         purchase_id: '3',
-        price: '34',
-        quantity: '1',
-        unit: 'gms'
+        price: '34'
       }
     end
     let(:updated?) { true }
@@ -91,15 +89,13 @@ RSpec.xdescribe MobileApp::PurchaseItemsController do
         {
           id: '1',
           name: 'test',
-          purchase_id: '3',
-          price: '34',
-          quantity: '1'
+          purchase_id: '3'
         }
       end
 
       it 'renders error message' do
         expect(controller).to receive(:render)
-          .with(json: { status: 'error', message: 'Missing required parameter unit' })
+          .with(json: { status: 'error', message: 'Missing required parameter price' })
 
         patch :update, params:
       end

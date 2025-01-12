@@ -36,7 +36,7 @@ class PurchaseItemsController < ApplicationController
 
   def permitted_params
     %i[
-      name price expiration_date quantity unit
+      name price expiration_date
     ]
   end
 

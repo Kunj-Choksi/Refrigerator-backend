@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_23_010831) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_12_230446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,8 +93,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_23_010831) do
     t.string "name"
     t.float "price"
     t.date "expiration_date"
-    t.float "quantity"
-    t.string "unit"
     t.string "item_type"
     t.string "verifi_id"
     t.json "verifi_metadata"

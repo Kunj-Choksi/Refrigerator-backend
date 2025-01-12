@@ -17,8 +17,6 @@
                 <th scope="col" class="px-6 py-4">Name</th>
                 <th scope="col" class="px-6 py-4">Price</th>
                 <th scope="col" class="px-6 py-4">Expiration date</th>
-                <th scope="col" class="px-6 py-4">Quantity</th>
-                <th scope="col" class="px-6 py-4">Unit</th>
                 <th scope="col" class="px-6 py-4">&nbsp;</th>
               </tr>
             </thead>
@@ -28,8 +26,6 @@
                   <td class="whitespace-nowrap px-6 py-4 font-medium"><%= purchase_item.name %></td>
                   <td class="whitespace-nowrap px-6 py-4 font-medium"><%= purchase_item.price %></td>
                   <td class="whitespace-nowrap px-6 py-4 font-medium"><%= purchase_item.expiration_date %></td>
-                  <td class="whitespace-nowrap px-6 py-4 font-medium"><%= purchase_item.quantity %></td>
-                  <td class="whitespace-nowrap px-6 py-4 font-medium"><%= purchase_item.unit %></td>
                   <td class="whitespace-nowrap px-6 py-4 font-medium">
                     <%= link_to "Edit", edit_purchase_item_path(purchase_item), class: "text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600" %>
                   </td>

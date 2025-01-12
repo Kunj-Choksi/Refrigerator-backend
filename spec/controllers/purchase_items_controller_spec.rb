@@ -39,8 +39,7 @@ RSpec.describe PurchaseItemsController, type: :controller do
           purchase_id: id,
           name: 'purchase',
           price: '23',
-          expiration_date: Date.today.to_s,
-          unit: 'ltr'
+          expiration_date: Date.today.to_s
         }
       }
     end

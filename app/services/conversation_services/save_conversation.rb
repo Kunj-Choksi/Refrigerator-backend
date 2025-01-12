@@ -50,6 +50,7 @@ module ConversationServices
     end
 
     def ai_bot_response(queries)
+      # sleep 4
       # 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt cum dignissimos rem cupiditate corporis eius porro ipsam aut unde iure delectus minima atque voluptate ea ad, iusto aperiam similique, blanditiis aspernatur facilis fugiat facere illo? Adipisci ab exercitationem quasi perferendis?'
       ChatBot::GeminiService.call(queries:)
     end
