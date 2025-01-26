@@ -5,7 +5,7 @@ RSpec.describe PurchaseItemsController, type: :controller do
   let(:purchase) { Purchase.new(id:) }
   let(:id) { '1' }
   let(:purchase_item) { Purchase::Item.new(id:, purchase_id: id) }
-  let(:params) { { id: } }
+  let(:params) { { id: id } }
 
   before do
     admin_sign_id(admin)
@@ -19,14 +19,14 @@ RSpec.describe PurchaseItemsController, type: :controller do
 
   describe 'GET #index' do
     it 'returns http success' do
-      get(:index, params:)
+      get(:index, params: params)
       expect(response).to render_template :index
     end
   end
 
   describe 'GET #edit' do
     it 'returns http success' do
-      get(:edit, params:)
+      get(:edit, params: params)
       expect(response).to render_template :edit
     end
   end
@@ -53,16 +53,16 @@ RSpec.describe PurchaseItemsController, type: :controller do
     end
 
     it 'updates purchase item' do
-      patch(:update, params:)
+      patch(:update, params: params)
       expect(response).to redirect_to items_purchase_path(id:)
       expect(flash[:notice]).to eq('Purchase item was successfully updated')
     end
 
-    context 'when update fails' do
+    context "when update fails" do
       let(:updated?) { false }
 
       it 'updates purchase item' do
-        patch(:update, params:)
+        patch(:update, params: params)
         expect(response).to redirect_to edit_purchase_item_path(id:)
         expect(flash[:alert]).to eq('Fail to update Purchase item')
       end
@@ -83,7 +83,7 @@ RSpec.describe PurchaseItemsController, type: :controller do
     end
 
     it 'destroys purchase item' do
-      delete(:destroy, params:)
+      delete(:destroy, params: params)
       expect(response).to redirect_to items_purchase_path(id:)
       expect(flash[:notice]).to eq('Purchase item was destroyed successfully')
     end
@@ -92,7 +92,7 @@ RSpec.describe PurchaseItemsController, type: :controller do
       let(:destroyed?) { false }
 
       it 'does not destroys purchase item' do
-        delete(:destroy, params:)
+        delete(:destroy, params: params)
         expect(response).to redirect_to items_purchase_path(id:)
         expect(flash[:alert]).to eq('Purchase item was not destroyed successfully')
       end
