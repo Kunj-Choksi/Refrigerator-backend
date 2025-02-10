@@ -1,4 +1,5 @@
 class MobileApp::ConversationController < MobileApp::BaseController
+  before_action :session_user
   before_action :set_conversation, only: [:conversation_messages]
 
   def user_conversations

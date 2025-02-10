@@ -1,15 +1,17 @@
 class MobileApp::BaseController < ActionController::Base
   protect_from_forgery with: :null_session
-  before_action :session_user
 
   def session_user
-    decoded_hash = decode_token
-    if decoded_hash && decoded_hash.empty?
-      render_error_message 'NOT_AUTHORIZED'
-      nil
-    else
-      @user = User.find_by_email(decoded_hash[0]['email'])
-    end
+    return if user
+
+    render_error_message 'NOT_AUTHORIZED'
+    nil
+  end
+
+  def user
+    return false if decode_token.empty?
+
+    @user ||= User.find_by(email: decode_token.first&.dig('email'))
   end
 
   def auth_header
@@ -17,18 +19,19 @@ class MobileApp::BaseController < ActionController::Base
   end
 
   def decode_token
-    return unless auth_header
+    return false unless auth_header
 
-    token = auth_header.split(' ')[1]
-    begin
-      JWT.decode(token, ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')
+    token = auth_header.split(' ').second
+
+    @decode_token ||= begin
+      JWT.decode(token, ENV.fetch('SECRET_KEY_BASE', nil), true, algorithm: 'HS256')
     rescue StandardError
       []
     end
   end
 
   def encoded_token(payload)
-    JWT.encode(payload, ENV['SECRET_KEY_BASE'])
+    JWT.encode(payload, ENV.fetch('SECRET_KEY_BASE', nil))
   end
 
   def render_result_json(object)

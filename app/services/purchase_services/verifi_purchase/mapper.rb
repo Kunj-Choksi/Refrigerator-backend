@@ -9,21 +9,22 @@ module PurchaseServices
         VerifiMapped.new(mapped_purchase:, mapped_purchase_items:)
       end
 
-      private
-
-      attr_reader :verifi_dump, :purchase
-
       def initialize(verifi_dump:, purchase:)
         @verifi_dump = verifi_dump
         @purchase = purchase
       end
 
+      private
+
+      attr_reader :purchase, :verifi_dump
+
       def mapped_purchase
-        HashWithIndifferentAccess.new(
+        ActiveSupport::HashWithIndifferentAccess.new(
           {
             store_name: verifi_dump['vendor']['name'],
+            purchase_date: verifi_dump['date'],
             billing_amount: verifi_dump['total'],
-            store_logo: verifi_dump['vendor']['vendor_logo'],
+            store_logo: verifi_dump['vendor']['logo'],
             verifi_id: verifi_dump['id'],
             verifi_metadata: verifi_dump.except('line_items')
           }
@@ -31,24 +32,18 @@ module PurchaseServices
       end
 
       def mapped_purchase_items
-        mapped_purchase_items = []
-        verifi_dump['line_items'].each do |line_item|
-          mapped_purchase_items << purchase_item(line_item)
+        verifi_dump['line_items'].map do |line_item|
+          ActiveSupport::HashWithIndifferentAccess.new(
+            {
+              purchase_id: purchase.id,
+              name: line_item['description'],
+              price: line_item['total'],
+              item_type: verifi_dump['type'],
+              verifi_id: verifi_dump['id'],
+              verifi_metadata: line_item
+            }
+          )
         end
-        mapped_purchase_items
-      end
-
-      def purchase_item(line_item)
-        HashWithIndifferentAccess.new(
-          {
-            purchase_id: purchase.id,
-            name: line_item['description'],
-            price: line_item['total'],
-            item_type: verifi_dump['type'],
-            verifi_id: verifi_dump['id'],
-            verifi_metadata: line_item
-          }
-        )
       end
     end
   end

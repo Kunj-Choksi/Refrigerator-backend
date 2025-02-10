@@ -5,7 +5,8 @@ module PurchaseServices
     end
 
     def call
-      false unless purchase.save!
+      return false unless purchase.save!
+
       save_verifi
       true
     end

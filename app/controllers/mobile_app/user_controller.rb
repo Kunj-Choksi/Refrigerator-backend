@@ -1,4 +1,6 @@
 class MobileApp::UserController < MobileApp::BaseController
+  before_action :session_user
+
   def save_device_info
     return unless has_sufficient_params?(%w[fcm_token device_type])
 
