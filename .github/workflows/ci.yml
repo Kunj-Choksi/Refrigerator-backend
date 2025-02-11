@@ -15,7 +15,8 @@ env:
   AZURE_STORAGE_ACCESS_KEY: ${{ secrets.AZURE_STORAGE_ACCESS_KEY }}
   AZURE_STORAGE_CONTAINER_NAME: ${{ secrets.AZURE_STORAGE_CONTAINER_NAME }}
 jobs:
-  test:
+  build_and_test:
+    name: Test app code and dependencies
     runs-on: ubuntu-latest
     services:
       postgres:
