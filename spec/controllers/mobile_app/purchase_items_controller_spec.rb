@@ -1,7 +1,8 @@
 require 'rails_helper'
 
-RSpec.xdescribe MobileApp::PurchaseItemsController do
-  let(:user) { User.new }
+RSpec.describe MobileApp::PurchaseItemsController do
+  include_context 'mobile_app_authorization'
+
   let(:purchase_item_id) { '1' }
   let(:params) { { id: purchase_item_id } }
   let(:purchase_item) do
@@ -13,28 +14,27 @@ RSpec.xdescribe MobileApp::PurchaseItemsController do
   end
 
   before do
-    allow(controller).to receive(:params).and_return(params)
+    allow(controller).to receive(:params)
+      .and_return(params)
     allow(Purchase::Item).to receive(:find)
       .with(params[:id])
       .and_return(purchase_item)
-    allow(User).to receive(:find_by_email)
-      .with('email')
-      .and_return(user)
   end
 
   describe 'GET #all_items' do
-    let(:all_items) { Purchase::Item.all }
+    let(:purchase_items) { Purchase::Item.all }
 
     before do
-      allow(all_items).to receive(:order)
+      allow(Purchase::Item).to receive(:all)
+        .and_return(purchase_items)
+      allow(purchase_items).to receive(:order)
         .with(created_at: :desc)
+        .and_return(purchase_items)
     end
 
     it 'returns all items' do
-      expect(Purchase::Item).to receive_message_chain(:all, :where)
-        .with(used: false)
       expect(controller).to receive(:render)
-        .with(json: { status: 'success', contents: nil })
+        .with(json: { status: 'success', contents: purchase_items })
 
       get :all_items, xhr: true
     end

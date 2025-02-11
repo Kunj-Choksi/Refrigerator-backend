@@ -1,17 +1,54 @@
 require 'rails_helper'
 
 RSpec.describe MobileApp::BaseController, type: :controller do
-  xdescribe '#set_user' do
+  describe '#session_user' do
     let(:user) { User.new }
+    let(:jwt_token_encoded) { 'jwt_token' }
+    let(:jwt_token_decoded) do
+      [
+        ActiveSupport::HashWithIndifferentAccess.new(
+          email: "email"
+        )
+      ]
+    end
 
     before do
-      allow(User).to receive(:first)
+      request.headers['Authorization'] = "Bearer jwt_token"
+      allow(ENV).to receive(:fetch)
+        .with('SECRET_KEY_BASE', nil)
+        .and_return('secret')
+      allow(JWT).to receive(:decode)
+        .with(
+          jwt_token_encoded,
+          'secret',
+          true,
+          algorithm: 'HS256'
+        )
+        .and_return(jwt_token_decoded)
+      allow(User).to receive(:find_by)
+        .with(email: 'email')
         .and_return(user)
     end
 
     it 'sets the user' do
-      controller.send :set_user
+      controller.send :session_user
       expect(assigns(:user)).to eq(user)
+    end
+
+    context 'when request headers is empty' do
+      let(:jwt_token_encoded) { nil }
+      let(:user) { nil }
+
+      before do
+        request.headers['Authorization'] = ""
+      end
+
+      it 'returns a error status with NOT_AUTHORIZED message' do
+        expect(controller).to receive(:render)
+          .with(json: { status: 'error', message: 'NOT_AUTHORIZED' })
+
+        controller.send :session_user
+      end
     end
   end
 

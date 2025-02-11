@@ -16,8 +16,8 @@ RSpec.describe PurchasesController, type: :controller do
     let(:purchases) { [purchase] }
 
     before do
-      allow(Purchase).to receive_message_chain(:all, :order)
-        .with(created_at: :desc)
+      allow(Purchase).to receive(:order)
+        .with(purchase_date: :desc)
         .and_return(purchases)
     end
 

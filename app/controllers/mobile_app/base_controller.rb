@@ -8,32 +8,6 @@ class MobileApp::BaseController < ActionController::Base
     nil
   end
 
-  def user
-    return false if decode_token.empty?
-
-    @user ||= User.find_by(email: decode_token.first&.dig('email'))
-  end
-
-  def auth_header
-    request.headers['Authorization']
-  end
-
-  def decode_token
-    return false unless auth_header
-
-    token = auth_header.split(' ').second
-
-    @decode_token ||= begin
-      JWT.decode(token, ENV.fetch('SECRET_KEY_BASE', nil), true, algorithm: 'HS256')
-    rescue StandardError
-      []
-    end
-  end
-
-  def encoded_token(payload)
-    JWT.encode(payload, ENV.fetch('SECRET_KEY_BASE', nil))
-  end
-
   def render_result_json(object)
     obj = {
       status: 'success',
@@ -62,8 +36,36 @@ class MobileApp::BaseController < ActionController::Base
     mandatory_params.each do |key|
       if params[key].blank?
         render_error_message("Missing required parameter #{key}")
-        return
+        break
       end
     end
+  end
+
+  private
+
+  def user
+    return false if decode_token.empty?
+
+    @user ||= User.find_by(email: decode_token.first&.dig('email'))
+  end
+
+  def auth_header
+    request.headers['Authorization']
+  end
+
+  def decode_token
+    return false unless auth_header
+
+    token = auth_header.split(' ').second
+
+    @decode_token ||= begin
+      JWT.decode(token, ENV.fetch('SECRET_KEY_BASE', nil), true, algorithm: 'HS256')
+    rescue StandardError
+      []
+    end
+  end
+
+  def encoded_token(payload)
+    JWT.encode(payload, ENV.fetch('SECRET_KEY_BASE', nil))
   end
 end
