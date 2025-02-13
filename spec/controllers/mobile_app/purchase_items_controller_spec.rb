@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe MobileApp::PurchaseItemsController do
-  include_context 'mobile_app_authorization'
-
   let(:purchase_item_id) { '1' }
   let(:params) { { id: purchase_item_id } }
   let(:purchase_item) do
@@ -14,8 +12,6 @@ RSpec.describe MobileApp::PurchaseItemsController do
   end
 
   before do
-    allow(controller).to receive(:params)
-      .and_return(params)
     allow(Purchase::Item).to receive(:find)
       .with(params[:id])
       .and_return(purchase_item)
@@ -23,6 +19,10 @@ RSpec.describe MobileApp::PurchaseItemsController do
 
   describe 'GET #all_items' do
     let(:purchase_items) { Purchase::Item.all }
+    let(:call_api_request) { get :all_items, xhr: true }
+    let(:response) do
+      { json: { status: 'success', contents: purchase_items } }
+    end
 
     before do
       allow(Purchase::Item).to receive(:all)
@@ -32,24 +32,27 @@ RSpec.describe MobileApp::PurchaseItemsController do
         .and_return(purchase_items)
     end
 
-    it 'returns all items' do
-      expect(controller).to receive(:render)
-        .with(json: { status: 'success', contents: purchase_items })
-
-      get :all_items, xhr: true
-    end
+    it_behaves_like 'mobile app api request'
   end
 
   describe 'GET #details' do
-    it 'returns item details' do
-      expect(controller).to receive(:render)
-        .with(json: { status: 'success', contents: purchase_item })
-
-      get :details, params:, xhr: true
+    let(:call_api_request) { get :details, params: params, xhr: true }
+    let(:response) do
+      {
+        json: { status: 'success', contents: purchase_item }
+      }
     end
+
+    it_behaves_like 'mobile app api request'
   end
 
   describe 'PATCH #update' do
+    let(:call_api_request) { patch :update, params: params, xhr: true }
+    let(:response) do
+      {
+        json: { status: 'success', message: 'Updated purchase item' }
+      }
+    end
     let(:params) do
       {
         id: '1',
@@ -66,22 +69,17 @@ RSpec.describe MobileApp::PurchaseItemsController do
         .and_return(updated?)
     end
 
-    it 'renders success message' do
-      expect(controller).to receive(:render)
-        .with(json: { status: 'success', message: 'Updated purchase item' })
-
-      patch :update, params:
-    end
+    it_behaves_like 'mobile app api request'
 
     context 'when update fails' do
       let(:updated?) { false }
-
-      it 'renders error message' do
-        expect(controller).to receive(:render)
-          .with(json: { status: 'error', message: 'Not updated purchase item' })
-
-        patch :update, params:
+      let(:response) do
+        {
+          json: { status: 'error', message: 'Not updated purchase item' }
+        }
       end
+
+      it_behaves_like 'mobile app api request'
     end
 
     context 'when missing params' do
@@ -92,27 +90,23 @@ RSpec.describe MobileApp::PurchaseItemsController do
           purchase_id: '3'
         }
       end
-
-      it 'renders error message' do
-        expect(controller).to receive(:render)
-          .with(json: { status: 'error', message: 'Missing required parameter price' })
-
-        patch :update, params:
+      let(:response) do
+        {
+          json: { status: 'error', message: 'Missing required parameter price' }
+        }
       end
+
+      it_behaves_like 'mobile app api request'
     end
   end
 
   describe 'PATCH #mark_as_used' do
-    let(:params) do
-      {
-        id: '1'
-      }
+    let(:call_api_request) { patch :mark_as_used, params: params }
+    let(:response) do
+      { json: { status: 'success', message: 'Marked purchase item as used' } }
     end
-    let(:used_params) do
-      {
-        used: true
-      }
-    end
+    let(:params) { { id: '1' } }
+    let(:used_params) { { used: true } }
     let(:updated?) { true }
 
     before do
@@ -121,42 +115,30 @@ RSpec.describe MobileApp::PurchaseItemsController do
         .and_return(updated?)
     end
 
-    it 'renders success message' do
-      expect(controller).to receive(:render)
-        .with(json: { status: 'success', message: 'Marked purchase item as used' })
-
-      patch :mark_as_used, params:
-    end
+    it_behaves_like 'mobile app api request'
 
     context 'when update fails' do
+      let(:response) do
+        { json: { status: 'error', message: 'Not marked purchase item as used' } }
+      end
       let(:updated?) { false }
 
-      it 'renders error message' do
-        expect(controller).to receive(:render)
-          .with(json: { status: 'error', message: 'Not marked purchase item as used' })
-
-        patch :mark_as_used, params:
-      end
+      it_behaves_like 'mobile app api request'
     end
   end
 
   describe 'DELETE #destroy' do
-    let(:params) do
-      {
-        id: '1'
-      }
+    let(:call_api_request) { delete :destroy, params: params }
+    let(:response) do
+      { json: { status: 'success', message: 'Deleted purchase Item' } }
     end
+    let(:params) { { id: '1' } }
 
     before do
       allow(purchase_item).to receive(:destroy!)
         .and_return(true)
     end
 
-    it 'renders success message' do
-      expect(controller).to receive(:render)
-        .with(json: { status: 'success', message: 'Deleted purchase Item' })
-
-      delete :destroy, params:
-    end
+    it_behaves_like 'mobile app api request'
   end
 end
