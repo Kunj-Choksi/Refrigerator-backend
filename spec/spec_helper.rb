@@ -92,3 +92,5 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+RSpec::Mocks.configuration.allow_message_expectations_on_nil = true

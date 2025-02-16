@@ -7,16 +7,17 @@ class MobileApp::ConversationController < MobileApp::BaseController
   end
 
   def conversation_messages
-    return unless has_sufficient_params?(%w[id])
+    return unless has_sufficient_params?(%i[id])
 
     render_result_json @conversation.messages.order(:created_at).reverse
   end
 
   def save_conversation_message
-    return unless has_sufficient_params?(%w[user_query])
+    return unless has_sufficient_params?(%i[user_query])
 
     message = ConversationServices::SaveConversation.call(
-      user: @user, query: params[:user_query],
+      user: @user,
+      query: params[:user_query],
       conversation_id: params[:id]
     )
 

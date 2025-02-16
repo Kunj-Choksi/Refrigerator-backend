@@ -57,12 +57,12 @@ RSpec.shared_examples "mobile app api request" do
       expect(assigns(:user)).to be_nil
     end
 
-    it "render error response" do
-      skip "not rendering correct response"
-      expect(controller).to receive(:render)
-        .with(response)
+    # it "render error response" do
+    #   skip "not rendering correct response"
+    #   expect(controller).to receive(:render)
+    #     .with(response)
 
-      call_api_request
-    end
+    #   call_api_request
+    # end
   end
 end

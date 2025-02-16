@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get 'purchase/:id', to: 'purchases#purchase'
     get 'purchase_items/:id', to: 'purchases#purchase_items'
     post 'create_purchase', to: 'purchases#create'
-    post 'update_purchase', to: 'purchases#update'
+    patch 'update_purchase', to: 'purchases#update'
     delete 'delete_purchase/:id', to: 'purchases#destroy'
 
     get 'all_items', to: 'purchase_items#all_items'
