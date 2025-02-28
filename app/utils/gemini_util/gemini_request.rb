@@ -25,7 +25,7 @@ module GeminiUtil
     end
 
     def url
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=#{ENV['GEMINI_KEY']}"
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=#{ENV.fetch('GEMINI_KEY', nil)}"
     end
 
     def json

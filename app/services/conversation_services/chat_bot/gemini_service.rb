@@ -25,13 +25,9 @@ module ConversationServices
       end
 
       def request_queries
-        request_queries = []
-
-        queries.each do |query|
-          request_queries << { text: query }
+        queries.map do |query|
+          { text: query }
         end
-
-        request_queries
       end
     end
   end

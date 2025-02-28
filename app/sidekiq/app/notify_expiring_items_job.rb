@@ -1,4 +1,4 @@
-class App::NotifyExpiringItemsJob < ActiveJob::Base
+class App::NotifyExpiringItemsJob < ApplicationJob
   queue_as :default
 
   def perform(*_args)
