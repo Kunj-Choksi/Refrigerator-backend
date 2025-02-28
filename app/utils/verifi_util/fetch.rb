@@ -17,7 +17,7 @@ module VerifiUtil
     attr_reader :file_path
 
     def params
-      HashWithIndifferentAccess.new(
+      ActiveSupport::HashWithIndifferentAccess.new(
         file_url: @file_path,
         auto_delete: true,
         boost_mode: false,
@@ -34,10 +34,10 @@ module VerifiUtil
 
     def veryfi_client
       Veryfi::Client.new(
-        client_id: ENV['VERIFY_CLIENT_ID'],
-        client_secret: ENV['VERIFY_CLIENT_SECRET'],
-        username: ENV['VERIFY_USERNAME'],
-        api_key: ENV['VERIFY_API_KEY']
+        client_id: ENV.fetch('VERIFY_CLIENT_ID', nil),
+        client_secret: ENV.fetch('VERIFY_CLIENT_SECRET', nil),
+        username: ENV.fetch('VERIFY_USERNAME', nil),
+        api_key: ENV.fetch('VERIFY_API_KEY', nil)
       )
     end
   end

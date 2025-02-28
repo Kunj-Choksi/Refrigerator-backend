@@ -18,6 +18,6 @@ RSpec.describe UserServices::SaveDeviceInfo do
   end
 
   context 'for new device' do
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 end

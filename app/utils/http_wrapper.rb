@@ -28,13 +28,9 @@ class HttpWrapper
     end
   end
 
-  def response_code
-    response.code
-  end
+  delegate :code, to: :response, prefix: true
 
-  def response_headers
-    response.headers
-  end
+  delegate :headers, to: :response, prefix: true
 
   def raw_response
     response.to_s

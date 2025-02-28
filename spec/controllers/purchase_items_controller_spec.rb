@@ -40,7 +40,7 @@ RSpec.describe PurchaseItemsController, type: :controller do
           name: "purchase",
           price: "23",
           used: "false",
-          expiration_date: Date.today.to_s
+          expiration_date: Time.zone.today.to_s
         }
       }
     end

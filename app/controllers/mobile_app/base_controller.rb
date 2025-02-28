@@ -1,4 +1,4 @@
-class MobileApp::BaseController < ActionController::Base
+class MobileApp::BaseController < ApplicationController
   protect_from_forgery with: :null_session
 
   def session_user
@@ -52,7 +52,7 @@ class MobileApp::BaseController < ActionController::Base
   def decode_token
     return [] unless auth_header
 
-    token = auth_header.split(" ").second
+    token = auth_header.split.second
 
     @decode_token ||= begin
       JWT.decode(token, ENV.fetch("SECRET_KEY_BASE", nil), true, algorithm: "HS256")

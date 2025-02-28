@@ -8,9 +8,9 @@ class MobileApp::PurchaseItemsController < MobileApp::BaseController
     if params[:used] == 'true'
       all_items = Purchase::Item.where(used: true) if params[:used] == 'true'
     elsif params[:expiring_soon] == 'true'
-      all_items = Purchase::Item.where(expiration_date: Date.today..Date.today + 5.days, used: false)
+      all_items = Purchase::Item.where(expiration_date: Time.zone.today..Time.zone.today + 5.days, used: false)
     elsif params[:expired] == 'true'
-      all_items = Purchase::Item.where(expiration_date: ..Date.today)
+      all_items = Purchase::Item.where(expiration_date: ..Time.zone.today)
     else
       all_items = Purchase::Item.where(used: false)
     end
