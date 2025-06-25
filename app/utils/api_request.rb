@@ -11,7 +11,7 @@ class ApiRequest
   end
 
   def http_wrapper_params
-    { headers:, verb:, url:, body:, json: }
+    { headers: headers, verb: verb, url: url, body: body, json: json, params: params }
   end
 
   def success?
@@ -48,13 +48,17 @@ class ApiRequest
     nil
   end
 
+  def params
+    nil
+  end
+
   private
 
   def create_external_request
     CreateExternalRequest.call(
       reconcilable_id: 123,
       reconcilable_type: 'User',
-      url:,
+      url: params ? "#{url}/#{params.to_query}" : url,
       request_method: verb,
       request_headers: headers,
       request_body: body,
