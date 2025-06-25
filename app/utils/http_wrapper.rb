@@ -1,14 +1,18 @@
 class HttpWrapper
+  delegate :code, to: :response, prefix: true
+  delegate :headers, to: :response, prefix: true
+
   def self.call(...)
     new(...).call
   end
 
-  def initialize(headers:, verb:, url:, body: nil, json: nil)
+  def initialize(headers:, verb:, url:, body: nil, json: nil, params: nil)
     @headers = headers
     @verb = verb
     @url = url
     @body = body
     @json = json
+    @params = params
   end
 
   def call
@@ -28,24 +32,16 @@ class HttpWrapper
     end
   end
 
-  def response_code
-    response.code
-  end
-
-  def response_headers
-    response.headers
-  end
-
   def raw_response
     response.to_s
   end
 
   private
 
-  attr_reader :body, :headers, :json, :verb, :url, :response
+  attr_reader :body, :headers, :json, :params, :response, :url, :verb
 
   def options
-    { body:, json: }.compact
+    { body: body, json: json, params: params }.compact
   end
 
   def mime_type
